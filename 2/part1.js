@@ -20,13 +20,7 @@ const solve = (input) => {
         'CY': 0
     }
 
-    win = 0;
-    input.forEach((game) => {
-        win = win + winMatrix[game];
-        win = win + game[1].charCodeAt(0)-87
-    })
-    
-    return win;
+    return win = input.reduce((sum, game) => sum + winMatrix[game] + game[1].charCodeAt(0)-87, 0);
 }
 
 let test_result = solve(processInput('./test.txt'));
