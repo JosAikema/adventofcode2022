@@ -37,8 +37,14 @@ const solve = (input) => {
     let monkeys = parseInput(input)
     console.log(monkeys)
     let round = 1;
-    while (true && round <= 10000) {
+
+    while (true && round <=1000) {
+        let modulo = 1
         //console.log('Round: ', round)
+        for (let m of monkeys){
+            modulo *= +m.test.value;
+        }
+        console.log('modulo: ', modulo)
         monkeys.forEach((monkey) => {
             //console.log('Monkey: ', monkey);
             let items = [...monkey.items]
@@ -53,11 +59,14 @@ const solve = (input) => {
                     value = parseInt(monkey.operation.value);
                 }
                 if (monkey.operation.operator === '*') {
-                    worryLevel = items[i] * value
+                    if (monkey.operation.value !== 'old') {
+                        worryLevel = items[i] * value
+                    }
                 } else if (monkey.operation.operator === '+') {
                     worryLevel = items[i] + value
                 }
                 //worryLevel = Math.floor(worryLevel / 3);
+                worryLevel = worryLevel % modulo;
                 if (worryLevel % monkey.test.value === 0) {
                     monkeys[monkey.test.valueTrue].items.push(worryLevel)
                 } else {
